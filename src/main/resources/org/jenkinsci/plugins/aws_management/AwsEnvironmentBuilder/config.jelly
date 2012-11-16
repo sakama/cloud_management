@@ -60,7 +60,7 @@
         <f:entry field="flavor" title="インスタンスタイプ" help="${helpURL}help-flavor.html">
           <f:textbox clazz="required"></f:textbox>
         </f:entry>
-        <f:entry field="elasticIp" title="Elastic IP" help="${helpURL}help-elasticeIp.html">
+        <f:entry field="elasticIp" title="Elastic IP" help="${helpURL}help-elasticIp.html">
           <f:textbox clazz="required"></f:textbox>
         </f:entry>
         <f:entry field="securityGroup" title="Security Groups" help="${helpURL}help-securityGroup.html">
