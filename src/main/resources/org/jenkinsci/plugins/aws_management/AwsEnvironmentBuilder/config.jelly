@@ -1,0 +1,85 @@
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+  <!--
+    プロジェクトの設定画面に表示される設定欄
+  -->
+  
+  <f:section title="AWS環境のセットアップに使うミドルウェアの設定">
+    <f:entry title="使用するミドルウェア" field="tool">
+      <select name="tool">
+          <j:set var="tool" value="${instance.tool}" />
+          <j:choose>
+            <j:when test="${lang == 'chef'}">
+              <option value="chef" selected="selected">Chef</option>
+            </j:when>
+            <j:otherwise>
+              <option value="chef">Chef</option>
+            </j:otherwise>
+          </j:choose>
+          <j:choose>
+            <j:when test="${lang == 'fabric'}">
+              <option value="fabric" selected="selected">Fabric</option>
+            </j:when>
+            <j:otherwise>
+              <option value="fabric">Fabric</option>
+            </j:otherwise>
+          </j:choose>
+      </select>
+    </f:entry>
+  
+    <f:entry title="Chef/FabricサーバへのSSH接続コマンド" field="sshCmd">
+      <f:textbox />
+    </f:entry>
+  
+    <f:entry title="コマンド実行にsudoが必要" field="requiresudo">
+      <f:checkbox name="requiresudo" checked="${instance.requiresudo}"/>
+    </f:entry>
+  
+    <f:entry title="AWSの秘密鍵のパス" field="awsKeyfile">
+      <f:textbox />
+    </f:entry>
+  </f:section>
+  
+<f:section title="インスタンス設定">
+  <f:entry field="envs" title="インスタンス">
+    <f:repeatable field="envs" minimum="1">
+      <j:set var="helpURL" value="/plugin/aws_management/" />
+      <div>インスタンス立ち上げに失敗した場合、テスト失敗となります。</div>
+      <table width="100%">
+        <f:entry field="envName" title="名前(整理用)" help="${helpURL}help-envName.html">
+          <f:textbox clazz="required"></f:textbox>
+        </f:entry>
+        <f:entry field="region" title="Region" help="${helpURL}help-region.html">
+          <f:textbox clazz="required"></f:textbox>
+        </f:entry>
+        <f:entry field="zone" title="Availability Zone" help="${helpURL}help-zone.html">
+          <f:textbox clazz="required"></f:textbox>
+        </f:entry>
+        <f:entry field="amiId" title="AMI ID" help="${helpURL}help-amiId.html">
+          <f:textbox clazz="required"></f:textbox>
+        </f:entry>
+        <f:entry field="flavor" title="インスタンスタイプ" help="${helpURL}help-flavor.html">
+          <f:textbox clazz="required"></f:textbox>
+        </f:entry>
+        <f:entry field="elasticIp" title="Elastic IP" help="${helpURL}help-ip.html">
+          <f:textbox clazz="required"></f:textbox>
+        </f:entry>
+        <f:entry field="securityGroup" title="Security Groups" help="${helpURL}help-securityGroup.html">
+          <f:textbox clazz="required"></f:textbox>
+        </f:entry>
+        <f:entry field="role" title="付与するロール" help="${helpURL}help-role.html">
+          <f:textbox clazz="required"></f:textbox>
+        </f:entry>
+        <f:entry>
+          <div align="right">
+            <f:repeatableDeleteButton />
+            <hr />
+          </div>
+        </f:entry>
+      </table>
+    </f:repeatable>
+    <f:entry>
+    <div><hr /></div>
+    </f:entry>
+  </f:entry>
+</f:section>
+</j:jelly>
