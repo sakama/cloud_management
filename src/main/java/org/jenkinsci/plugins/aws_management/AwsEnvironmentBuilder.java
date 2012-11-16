@@ -102,7 +102,7 @@ public class AwsEnvironmentBuilder extends Builder {
         private String envName;
         private String amiId;
         private String flavor;
-        private String ip;
+        private String elasticIp;
         private String region;
         private String role;
         private String securityGroup;
@@ -120,8 +120,8 @@ public class AwsEnvironmentBuilder extends Builder {
             return flavor;
         }
         
-        public String getIp() {
-            return ip;
+        public String getElasticIp() {
+            return elasticIp;
         }
         
         public String getRegion() {
