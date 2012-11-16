@@ -35,18 +35,6 @@ public class AwsEnvironmentBuilder extends Builder {
         this.requiresudo = requiresudo;
     }
 
-    public String getHostname() {
-        return hostname;
-    }
-    
-    public String getTool() {
-        return tool;
-    }
-    
-    public Boolean getRequiresudo() {
-        return requiresudo;
-    }
-
     @SuppressWarnings("rawtypes")
     @Override
     public boolean perform(AbstractBuild build, Launcher launcher, BuildListener listener) {
@@ -67,7 +55,7 @@ public class AwsEnvironmentBuilder extends Builder {
                 return FormValidation.warning("Isn't the name too short?");
             return FormValidation.ok();
         }
-        
+
         private List<CloudEnv> envs;
 
         public List<CloudEnv> getEnvs() {
@@ -80,7 +68,7 @@ public class AwsEnvironmentBuilder extends Builder {
         public void setEnvs(List<CloudEnv> envs) {
             this.envs = envs;
         }
-        
+
         @SuppressWarnings("rawtypes")
         @Override
         public boolean isApplicable(Class jobType) {
@@ -111,46 +99,58 @@ public class AwsEnvironmentBuilder extends Builder {
         public String getEnvName() {
             return envName;
         }
-        
+
         public String getAmiId() {
             return amiId;
         }
-        
+
         public String getFlavor() {
             return flavor;
         }
-        
+
         public String getElasticIp() {
             return elasticIp;
         }
-        
+
         public String getRegion() {
             return region;
         }
-        
+
         public String getRole() {
             return role;
         }
-        
+
         public String getSecurityGroup() {
             return securityGroup;
         }
-        
+
         public String getZone() {
             return zone;
         }
 
         @DataBoundConstructor
-        public CloudEnv(String envName, String amiId, String flavor, String ip, String region, String role, String securityGroup, String zone) {
+        public CloudEnv(String envName, String amiId, String flavor, String elasticIp, String region, String role, String securityGroup, String zone) {
             this.envName = envName;
-            this.envName = amiId;
-            this.envName = flavor;
-            this.envName = ip;
-            this.envName = region;
-            this.envName = role;
-            this.envName = securityGroup;
-            this.envName = zone;
+            this.amiId = amiId;
+            this.flavor = flavor;
+            this.elasticIp = elasticIp;
+            this.region = region;
+            this.role = role;
+            this.securityGroup = securityGroup;
+            this.zone = zone;
         }
+    }
+
+    public String getHostname() {
+        return hostname;
+    }
+
+    public String getTool() {
+        return tool;
+    }
+
+    public Boolean getRequiresudo() {
+        return requiresudo;
     }
 
 }
