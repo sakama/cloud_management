@@ -43,31 +43,32 @@
   <f:entry field="envs" title="インスタンス">
     <f:repeatable field="envs" minimum="1">
       <j:set var="helpURL" value="/plugin/aws_management/" />
+      <j:set var="checkURL" value="descriptorByName/AwsEnvironmentBuilder/" />
       <div>インスタンス立ち上げに失敗した場合、テスト失敗となります。</div>
       <table width="100%">
-        <f:entry field="envName" title="名前(整理用)" help="${helpURL}help-envName.html">
-          <f:textbox clazz="required"></f:textbox>
+        <f:entry field="envName" title="名前(整理用)" help="${helpURL}help-envName.html" >
+          <f:textbox></f:textbox>
         </f:entry>
         <f:entry field="region" title="Region" help="${helpURL}help-region.html">
-          <f:textbox clazz="required"></f:textbox>
+          <f:textbox checkUrl="'${checkURL}checkRegion?value='+encodeURIComponent(this.value)"></f:textbox>
         </f:entry>
         <f:entry field="zone" title="Availability Zone" help="${helpURL}help-zone.html">
-          <f:textbox clazz="required"></f:textbox>
+          <f:textbox checkUrl="'${checkURL}checkAvailabilityZone?value='+encodeURIComponent(this.value)"></f:textbox>
         </f:entry>
         <f:entry field="amiId" title="AMI ID" help="${helpURL}help-amiId.html">
-          <f:textbox clazz="required"></f:textbox>
+          <f:textbox checkUrl="'${checkURL}checkAmiId?value='+encodeURIComponent(this.value)"></f:textbox>
         </f:entry>
         <f:entry field="flavor" title="インスタンスタイプ" help="${helpURL}help-flavor.html">
-          <f:textbox clazz="required"></f:textbox>
+          <f:textbox checkUrl="'${checkURL}checkFlavor?value='+encodeURIComponent(this.value)"></f:textbox>
         </f:entry>
         <f:entry field="elasticIp" title="Elastic IP" help="${helpURL}help-elasticIp.html">
-          <f:textbox clazz="required"></f:textbox>
+          <f:textbox checkUrl="'${checkURL}checkElasticIp?value='+encodeURIComponent(this.value)"></f:textbox>
         </f:entry>
-        <f:entry field="securityGroup" title="Security Groups" help="${helpURL}help-securityGroup.html">
-          <f:textbox clazz="required"></f:textbox>
+        <f:entry field="securityGroup" title="Security Group" help="${helpURL}help-securityGroup.html">
+          <f:textbox checkUrl="'${checkURL}checkSecurityGroup?value='+encodeURIComponent(this.value)"></f:textbox>
         </f:entry>
         <f:entry field="role" title="付与するロール" help="${helpURL}help-role.html">
-          <f:textbox clazz="required"></f:textbox>
+          <f:textbox checkUrl="'${checkURL}checkRole?value='+encodeURIComponent(this.value)"></f:textbox>
         </f:entry>
         <f:entry>
           <div align="right">

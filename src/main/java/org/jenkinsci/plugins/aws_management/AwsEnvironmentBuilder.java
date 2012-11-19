@@ -4,7 +4,10 @@ import javax.servlet.ServletException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import net.sf.json.JSONObject;
 
 import hudson.Launcher;
@@ -28,6 +31,9 @@ public class AwsEnvironmentBuilder extends Builder {
     private final String tool;
     private final Boolean requiresudo;
 
+    /** Logger. */
+    private static final Logger LOGGER = Logger.getLogger(AwsEnvironmentBuilder.class.getName());
+
     @DataBoundConstructor
     public AwsEnvironmentBuilder(String hostname, String tool, Boolean requiresudo) {
         this.hostname = hostname;
@@ -46,13 +52,105 @@ public class AwsEnvironmentBuilder extends Builder {
         return (DescriptorImpl) super.getDescriptor();
     }
 
+    public static final DescriptorImpl DESCRIPTOR = new DescriptorImpl();
+
     @Extension
     public static final class DescriptorImpl extends BuildStepDescriptor<Builder> {
-        public FormValidation doCheckHostname(@QueryParameter String value) throws IOException, ServletException {
-            if (value.length() == 0)
-                return FormValidation.error("Please set a name");
-            if (value.length() < 4)
-                return FormValidation.warning("Isn't the name too short?");
+        public FormValidation doCheckSshCmd(@QueryParameter String value) throws IOException, ServletException {
+            if (value.length() == 0) {
+                return FormValidation.error("SSHコマンドを入力してください。");
+            }
+            return FormValidation.ok();
+        }
+        
+        public FormValidation doCheckAwsKeyfile(@QueryParameter String value) throws IOException, ServletException {
+            if (value.length() == 0) {
+                return FormValidation.error("AWSの秘密鍵のパスを入力してください。");
+            }
+            return FormValidation.ok();
+        }
+
+        public FormValidation doCheckRegion(@QueryParameter String value) throws IOException, ServletException {
+            if (value.length() == 0) {
+                return FormValidation.error("Regionを入力してください。");
+            }
+            Pattern pattern = Pattern.compile("^[a-z]+?-[a-z]+?-[0-9]{1,2}$");
+            Matcher m = pattern.matcher(value);
+            if (!m.find()) {
+                return FormValidation.error("Regionの形式が違います。");
+            }
+            return FormValidation.ok();
+        }
+
+        public FormValidation doCheckAvailabilityZone(@QueryParameter String value) throws IOException, ServletException {
+            if (value.length() == 0) {
+                return FormValidation.error("Availability Zoneを入力してください。");
+            }
+            Pattern pattern = Pattern.compile("^[a-z]+?-[a-z]+?-[0-9]{1,2}[a-z]{1}$");
+            Matcher m = pattern.matcher(value);
+            if (!m.find()) {
+                return FormValidation.error("Availability Zoneの形式が違います。");
+            }
+            return FormValidation.ok();
+        }
+
+        public FormValidation doCheckAmiId(@QueryParameter String value) throws IOException, ServletException {
+            if (value.length() == 0) {
+                return FormValidation.error("AMI IDを入力してください。");
+            }
+            Pattern pattern = Pattern.compile("^ami-[a-z0-9]{8}$");
+            Matcher m = pattern.matcher(value);
+            if (!m.find()) {
+                return FormValidation.error("AMI IDの形式が違います。");
+            }
+            return FormValidation.ok();
+        }
+
+        public FormValidation doCheckFlavor(@QueryParameter String value) throws IOException, ServletException {
+            if (value.length() == 0) {
+                return FormValidation.error("インスタンスタイプを入力してください。");
+            }
+            Pattern pattern = Pattern.compile("^[a-z]{1,3}[0-9]{1}\\.[0-9]?(micro|small|medium|large|xlarge){1}$");
+            Matcher m = pattern.matcher(value);
+            if (!m.find()) {
+                return FormValidation.error("インスタンスタイプの形式が違います。");
+            }
+            return FormValidation.ok();
+        }
+
+        public FormValidation doCheckElasticIp(@QueryParameter String value) throws IOException, ServletException {
+            if(value.length() ==0) {
+                return FormValidation.error("Elastic IPを入力してください。");
+            }
+            Pattern pattern = Pattern.compile("^(\\d|[01]?\\d\\d|2[0-4]\\d|25[0-5])\\.(\\d|[01]?\\d\\d|2[0-4]\\d|25[0-5])\\.(\\d|[01]?\\d\\d|2[0-4]\\d|25[0-5])\\.(\\d|[01]?\\d\\d|2[0-4]\\d|25[0-5])");
+            Matcher m = pattern.matcher(value);
+            if (!m.find()) {
+                return FormValidation.error("Elastic IPの形式が違います。");
+            }
+            return FormValidation.ok();
+        }
+
+        public FormValidation doCheckSecurityGroup(@QueryParameter String value) throws IOException, ServletException {
+            if(value.length() ==0) {
+                return FormValidation.error("Security Groupを入力してください。");
+            }
+            Pattern pattern = Pattern.compile(".*");
+            Matcher m = pattern.matcher(value);
+            if (!m.find()) {
+                return FormValidation.error("Security Groupの形式が違います。");
+            }
+            return FormValidation.ok();
+        }
+
+        public FormValidation doCheckRole(@QueryParameter String value) throws IOException, ServletException {
+            if(value.length() ==0) {
+                return FormValidation.error("Roleを入力してください。");
+            }
+            Pattern pattern = Pattern.compile("^((?!,$).)*$");
+            Matcher m = pattern.matcher(value);
+            if (!m.find()) {
+                return FormValidation.error("Roleの形式が違います。");
+            }
             return FormValidation.ok();
         }
 
