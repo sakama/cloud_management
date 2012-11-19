@@ -8,7 +8,7 @@
       <select name="tool">
           <j:set var="tool" value="${instance.tool}" />
           <j:choose>
-            <j:when test="${lang == 'chef'}">
+            <j:when test="${tool == 'chef'}">
               <option value="chef" selected="selected">Chef</option>
             </j:when>
             <j:otherwise>
@@ -16,7 +16,7 @@
             </j:otherwise>
           </j:choose>
           <j:choose>
-            <j:when test="${lang == 'fabric'}">
+            <j:when test="${tool == 'fabric'}">
               <option value="fabric" selected="selected">Fabric</option>
             </j:when>
             <j:otherwise>
@@ -34,7 +34,7 @@
       <f:checkbox name="requiresudo" checked="${instance.requiresudo}"/>
     </f:entry>
   
-    <f:entry title="AWSの秘密鍵のパス" field="awsKeyfile">
+    <f:entry title="AWSの秘密鍵のパス" field="awsKeyFile">
       <f:textbox />
     </f:entry>
   </f:section>

@@ -27,18 +27,20 @@ import org.kohsuke.stapler.QueryParameter;
  */
 public class AwsEnvironmentBuilder extends Builder {
 
-    private final String hostname;
     private final String tool;
+    private final String sshCmd;
     private final Boolean requiresudo;
+    private final String awsKeyFile;
 
     /** Logger. */
     private static final Logger LOGGER = Logger.getLogger(AwsEnvironmentBuilder.class.getName());
 
     @DataBoundConstructor
-    public AwsEnvironmentBuilder(String hostname, String tool, Boolean requiresudo) {
-        this.hostname = hostname;
+    public AwsEnvironmentBuilder(String tool, String sshCmd, Boolean requiresudo, String awsKeyFile) {
         this.tool = tool;
+        this.sshCmd = sshCmd;
         this.requiresudo = requiresudo;
+        this.awsKeyFile = awsKeyFile;
     }
 
     @SuppressWarnings("rawtypes")
@@ -179,6 +181,7 @@ public class AwsEnvironmentBuilder extends Builder {
 
         @Override
         public boolean configure(StaplerRequest req, JSONObject formData) throws FormException {
+            req.bindJSON(this, formData);
             save();
             return super.configure(req, formData);
         }
@@ -239,16 +242,20 @@ public class AwsEnvironmentBuilder extends Builder {
         }
     }
 
-    public String getHostname() {
-        return hostname;
-    }
-
     public String getTool() {
         return tool;
+    }
+    
+    public String getSshCmd() {
+        return sshCmd;
     }
 
     public Boolean getRequiresudo() {
         return requiresudo;
+    }
+    
+    public String getAwsKeyFile() {
+        return awsKeyFile;
     }
 
 }
