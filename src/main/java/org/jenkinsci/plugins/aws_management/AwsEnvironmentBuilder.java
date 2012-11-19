@@ -77,7 +77,7 @@ public class AwsEnvironmentBuilder extends Builder {
             Pattern pattern = Pattern.compile("^[a-z]+?-[a-z]+?-[0-9]{1,2}$");
             Matcher m = pattern.matcher(value);
             if (!m.find()) {
-                return FormValidation.error("Regionの形式が違います。");
+                return FormValidation.error("Regionのフォーマットが違います。");
             }
             return FormValidation.ok();
         }
@@ -89,7 +89,7 @@ public class AwsEnvironmentBuilder extends Builder {
             Pattern pattern = Pattern.compile("^[a-z]+?-[a-z]+?-[0-9]{1,2}[a-z]{1}$");
             Matcher m = pattern.matcher(value);
             if (!m.find()) {
-                return FormValidation.error("Availability Zoneの形式が違います。");
+                return FormValidation.error("Availability Zoneのフォーマットが違います。");
             }
             return FormValidation.ok();
         }
@@ -101,7 +101,7 @@ public class AwsEnvironmentBuilder extends Builder {
             Pattern pattern = Pattern.compile("^ami-[a-z0-9]{8}$");
             Matcher m = pattern.matcher(value);
             if (!m.find()) {
-                return FormValidation.error("AMI IDの形式が違います。");
+                return FormValidation.error("AMI IDのフォーマットが違います。");
             }
             return FormValidation.ok();
         }
@@ -113,7 +113,7 @@ public class AwsEnvironmentBuilder extends Builder {
             Pattern pattern = Pattern.compile("^[a-z]{1,3}[0-9]{1}\\.[0-9]?(micro|small|medium|large|xlarge){1}$");
             Matcher m = pattern.matcher(value);
             if (!m.find()) {
-                return FormValidation.error("インスタンスタイプの形式が違います。");
+                return FormValidation.error("インスタンスタイプのフォーマットが違います。");
             }
             return FormValidation.ok();
         }
@@ -125,7 +125,7 @@ public class AwsEnvironmentBuilder extends Builder {
             Pattern pattern = Pattern.compile("^(\\d|[01]?\\d\\d|2[0-4]\\d|25[0-5])\\.(\\d|[01]?\\d\\d|2[0-4]\\d|25[0-5])\\.(\\d|[01]?\\d\\d|2[0-4]\\d|25[0-5])\\.(\\d|[01]?\\d\\d|2[0-4]\\d|25[0-5])");
             Matcher m = pattern.matcher(value);
             if (!m.find()) {
-                return FormValidation.error("Elastic IPの形式が違います。");
+                return FormValidation.error("Elastic IPのフォーマットが違います。");
             }
             return FormValidation.ok();
         }
@@ -137,7 +137,7 @@ public class AwsEnvironmentBuilder extends Builder {
             Pattern pattern = Pattern.compile(".*");
             Matcher m = pattern.matcher(value);
             if (!m.find()) {
-                return FormValidation.error("Security Groupの形式が違います。");
+                return FormValidation.error("Security Groupのフォーマットが違います。");
             }
             return FormValidation.ok();
         }
@@ -149,7 +149,7 @@ public class AwsEnvironmentBuilder extends Builder {
             Pattern pattern = Pattern.compile("^((?!,$).)*$");
             Matcher m = pattern.matcher(value);
             if (!m.find()) {
-                return FormValidation.error("Roleの形式が違います。");
+                return FormValidation.error("Roleのフォーマットが違います。");
             }
             return FormValidation.ok();
         }

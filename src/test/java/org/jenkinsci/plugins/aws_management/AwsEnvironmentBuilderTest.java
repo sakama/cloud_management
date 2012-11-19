@@ -23,7 +23,7 @@ public class AwsEnvironmentBuilderTest {
         String[] inCorrects = {};
         for (int i = 0; i < inCorrects.length; i++) {
             FormValidation actual3 = AwsEnvironmentBuilder.DESCRIPTOR.doCheckSshCmd(inCorrects[i]);
-            assertEquals(actual3.toString(), FormValidation.error("SSHコマンドの形式が違います。").toString());
+            assertEquals(actual3.toString(), FormValidation.error("SSHコマンドのフォーマットが違います。").toString());
         }
     }
     
@@ -41,7 +41,7 @@ public class AwsEnvironmentBuilderTest {
         String[] inCorrects = {};
         for (int i = 0; i < inCorrects.length; i++) {
             FormValidation actual3 = AwsEnvironmentBuilder.DESCRIPTOR.doCheckAwsKeyfile(inCorrects[i]);
-            assertEquals(actual3.toString(), FormValidation.error("AWSの秘密鍵のパスの形式が違います。").toString());
+            assertEquals(actual3.toString(), FormValidation.error("AWSの秘密鍵のパスのフォーマットが違います。").toString());
         }
     }
 
@@ -59,7 +59,7 @@ public class AwsEnvironmentBuilderTest {
         String[] inCorrects = { "日本語テキスト", "us-east-1a" };
         for (int i = 0; i < inCorrects.length; i++) {
             FormValidation actual3 = AwsEnvironmentBuilder.DESCRIPTOR.doCheckRegion(inCorrects[i]);
-            assertEquals(actual3.toString(), FormValidation.error("Regionの形式が違います。").toString());
+            assertEquals(actual3.toString(), FormValidation.error("Regionのフォーマットが違います。").toString());
         }
     }
 
@@ -77,7 +77,7 @@ public class AwsEnvironmentBuilderTest {
         String[] inCorrects = { "日本語テキスト", "us-east-1" };
         for (int i = 0; i < inCorrects.length; i++) {
             FormValidation actual3 = AwsEnvironmentBuilder.DESCRIPTOR.doCheckAvailabilityZone(inCorrects[i]);
-            assertEquals(actual3.toString(), FormValidation.error("Availability Zoneの形式が違います。").toString());
+            assertEquals(actual3.toString(), FormValidation.error("Availability Zoneのフォーマットが違います。").toString());
         }
     }
 
@@ -95,7 +95,7 @@ public class AwsEnvironmentBuilderTest {
         String[] inCorrects = { "日本語テキスト", "ami03559b6a", "03559b6a" };
         for (int i = 0; i < inCorrects.length; i++) {
             FormValidation actual3 = AwsEnvironmentBuilder.DESCRIPTOR.doCheckAmiId(inCorrects[i]);
-            assertEquals(actual3.toString(), FormValidation.error("AMI IDの形式が違います。").toString());
+            assertEquals(actual3.toString(), FormValidation.error("AMI IDのフォーマットが違います。").toString());
         }
     }
 
@@ -113,7 +113,7 @@ public class AwsEnvironmentBuilderTest {
         String[] inCorrects = { "m1small", "small", "m1", "hi1.4xlage" };
         for (int i = 0; i < inCorrects.length; i++) {
             FormValidation actual3 = AwsEnvironmentBuilder.DESCRIPTOR.doCheckFlavor(inCorrects[i]);
-            assertEquals(actual3.toString(), FormValidation.error("インスタンスタイプの形式が違います。").toString());
+            assertEquals(actual3.toString(), FormValidation.error("インスタンスタイプのフォーマットが違います。").toString());
         }
     }
 
@@ -131,7 +131,7 @@ public class AwsEnvironmentBuilderTest {
         String[] inCorrects = { "10.1", "10.1.1" };
         for (int i = 0; i < inCorrects.length; i++) {
             FormValidation actual3 = AwsEnvironmentBuilder.DESCRIPTOR.doCheckElasticIp(inCorrects[i]);
-            assertEquals(actual3.toString(), FormValidation.error("Elastic IPの形式が違います。").toString());
+            assertEquals(actual3.toString(), FormValidation.error("Elastic IPのフォーマットが違います。").toString());
         }
     }
 
@@ -149,7 +149,7 @@ public class AwsEnvironmentBuilderTest {
         String[] inCorrects = {};
         for (int i = 0; i < inCorrects.length; i++) {
             FormValidation actual3 = AwsEnvironmentBuilder.DESCRIPTOR.doCheckSecurityGroup(inCorrects[i]);
-            assertEquals(actual3.toString(), FormValidation.error("Security Groupの形式が違います。").toString());
+            assertEquals(actual3.toString(), FormValidation.error("Security Groupのフォーマットが違います。").toString());
         }
     }
 
@@ -167,7 +167,7 @@ public class AwsEnvironmentBuilderTest {
         String[] inCorrects = {"web,db," };
         for (int i = 0; i < inCorrects.length; i++) {
             FormValidation actual3 = AwsEnvironmentBuilder.DESCRIPTOR.doCheckRole(inCorrects[i]);
-            assertEquals(actual3.toString(), FormValidation.error("Roleの形式が違います。").toString());
+            assertEquals(actual3.toString(), FormValidation.error("Roleのフォーマットが違います。").toString());
         }
     }
 }
