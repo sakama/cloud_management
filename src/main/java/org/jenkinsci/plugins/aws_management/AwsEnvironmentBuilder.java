@@ -31,16 +31,18 @@ public class AwsEnvironmentBuilder extends Builder {
     private final String sshCmd;
     private final Boolean requiresudo;
     private final String awsKeyFile;
+    private final List<CloudEnv> envs;
 
     /** Logger. */
     private static final Logger LOGGER = Logger.getLogger(AwsEnvironmentBuilder.class.getName());
 
     @DataBoundConstructor
-    public AwsEnvironmentBuilder(String tool, String sshCmd, Boolean requiresudo, String awsKeyFile) {
+    public AwsEnvironmentBuilder(String tool, String sshCmd, Boolean requiresudo, String awsKeyFile, List<CloudEnv> envs) {
         this.tool = tool;
         this.sshCmd = sshCmd;
         this.requiresudo = requiresudo;
         this.awsKeyFile = awsKeyFile;
+        this.envs = envs;
     }
 
     @SuppressWarnings("rawtypes")
@@ -58,13 +60,44 @@ public class AwsEnvironmentBuilder extends Builder {
 
     @Extension
     public static final class DescriptorImpl extends BuildStepDescriptor<Builder> {
+
+        private List<CloudEnv> envs;
+
+        public List<CloudEnv> getEnvs() {
+            if (envs == null) {
+                envs = new ArrayList<CloudEnv>();
+            }
+            return envs;
+        }
+
+        public void setEnvs(List<CloudEnv> envs) {
+            this.envs = envs;
+        }
+
+        @SuppressWarnings("rawtypes")
+        @Override
+        public boolean isApplicable(Class jobType) {
+            return true;
+        }
+
+        public String getDisplayName() {
+            return "AWS Management";
+        }
+
+        @Override
+        public boolean configure(StaplerRequest req, JSONObject formData) throws FormException {
+            req.bindJSON(this, formData);
+            save();
+            return super.configure(req, formData);
+        }
+
         public FormValidation doCheckSshCmd(@QueryParameter String value) throws IOException, ServletException {
             if (value.length() == 0) {
                 return FormValidation.error("SSHコマンドを入力してください。");
             }
             return FormValidation.ok();
         }
-        
+
         public FormValidation doCheckAwsKeyfile(@QueryParameter String value) throws IOException, ServletException {
             if (value.length() == 0) {
                 return FormValidation.error("AWSの秘密鍵のパスを入力してください。");
@@ -121,10 +154,11 @@ public class AwsEnvironmentBuilder extends Builder {
         }
 
         public FormValidation doCheckElasticIp(@QueryParameter String value) throws IOException, ServletException {
-            if(value.length() ==0) {
+            if (value.length() == 0) {
                 return FormValidation.error("Elastic IPを入力してください。");
             }
-            Pattern pattern = Pattern.compile("^(\\d|[01]?\\d\\d|2[0-4]\\d|25[0-5])\\.(\\d|[01]?\\d\\d|2[0-4]\\d|25[0-5])\\.(\\d|[01]?\\d\\d|2[0-4]\\d|25[0-5])\\.(\\d|[01]?\\d\\d|2[0-4]\\d|25[0-5])");
+            Pattern pattern = Pattern
+                    .compile("^(\\d|[01]?\\d\\d|2[0-4]\\d|25[0-5])\\.(\\d|[01]?\\d\\d|2[0-4]\\d|25[0-5])\\.(\\d|[01]?\\d\\d|2[0-4]\\d|25[0-5])\\.(\\d|[01]?\\d\\d|2[0-4]\\d|25[0-5])");
             Matcher m = pattern.matcher(value);
             if (!m.find()) {
                 return FormValidation.error("Elastic IPのフォーマットが違います。");
@@ -133,7 +167,7 @@ public class AwsEnvironmentBuilder extends Builder {
         }
 
         public FormValidation doCheckSecurityGroup(@QueryParameter String value) throws IOException, ServletException {
-            if(value.length() ==0) {
+            if (value.length() == 0) {
                 return FormValidation.error("Security Groupを入力してください。");
             }
             Pattern pattern = Pattern.compile(".*");
@@ -145,7 +179,7 @@ public class AwsEnvironmentBuilder extends Builder {
         }
 
         public FormValidation doCheckRole(@QueryParameter String value) throws IOException, ServletException {
-            if(value.length() ==0) {
+            if (value.length() == 0) {
                 return FormValidation.error("Roleを入力してください。");
             }
             Pattern pattern = Pattern.compile("^((?!,$).)*$");
@@ -154,36 +188,6 @@ public class AwsEnvironmentBuilder extends Builder {
                 return FormValidation.error("Roleのフォーマットが違います。");
             }
             return FormValidation.ok();
-        }
-
-        private List<CloudEnv> envs;
-
-        public List<CloudEnv> getEnvs() {
-            if (envs == null) {
-                envs = new ArrayList<CloudEnv>();
-            }
-            return envs;
-        }
-
-        public void setEnvs(List<CloudEnv> envs) {
-            this.envs = envs;
-        }
-
-        @SuppressWarnings("rawtypes")
-        @Override
-        public boolean isApplicable(Class jobType) {
-            return true;
-        }
-
-        public String getDisplayName() {
-            return "AWS Management";
-        }
-
-        @Override
-        public boolean configure(StaplerRequest req, JSONObject formData) throws FormException {
-            req.bindJSON(this, formData);
-            save();
-            return super.configure(req, formData);
         }
     }
 
@@ -245,7 +249,7 @@ public class AwsEnvironmentBuilder extends Builder {
     public String getTool() {
         return tool;
     }
-    
+
     public String getSshCmd() {
         return sshCmd;
     }
@@ -253,9 +257,13 @@ public class AwsEnvironmentBuilder extends Builder {
     public Boolean getRequiresudo() {
         return requiresudo;
     }
-    
+
     public String getAwsKeyFile() {
         return awsKeyFile;
+    }
+    
+    public List<CloudEnv> getEnvs() {
+        return envs;
     }
 
 }
