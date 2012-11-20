@@ -67,8 +67,53 @@
         <f:entry field="securityGroup" title="Security Group" help="${helpURL}help-securityGroup.html">
           <f:textbox checkUrl="'${checkURL}checkSecurityGroup?value='+encodeURIComponent(this.value)"></f:textbox>
         </f:entry>
-        <f:entry field="role" title="付与するロール" help="${helpURL}help-role.html">
+        <f:entry field="role" title="付与するロール(Chefの場合)" help="${helpURL}help-role.html">
           <f:textbox checkUrl="'${checkURL}checkRole?value='+encodeURIComponent(this.value)"></f:textbox>
+        </f:entry>
+        <f:entry title="テスト終了時の操作" field="endManagement" help="${helpURL}help-endManagement.html">
+          <select name="endManagement">
+              <j:set var="endManagement" value="${instance.endManagement}" />
+              <j:choose>
+                <j:when test="${endManagement == 'terminate'}">
+                  <option value="terminate" selected="selected">Terminate</option>
+                </j:when>
+                <j:otherwise>
+                  <option value="terminate">Terminate</option>
+                </j:otherwise>
+              </j:choose>
+              <j:choose>
+                <j:when test="${endManagement == 'stop'}">
+                  <option value="stop" selected="selected">Stop</option>
+                </j:when>
+                <j:otherwise>
+                  <option value="stop">Stop</option>
+                </j:otherwise>
+              </j:choose>
+              <j:choose>
+                <j:when test="${endManagement == 'success-terminate'}">
+                  <option value="success-terminate" selected="selected">テスト成功時のみTerminate</option>
+                </j:when>
+                <j:otherwise>
+                  <option value="success-terminate">テスト成功時のみTerminate</option>
+                </j:otherwise>
+              </j:choose>
+              <j:choose>
+                <j:when test="${endManagement == 'success-stop'}">
+                  <option value="success-stop" selected="selected">テスト成功時のみStop</option>
+                </j:when>
+                <j:otherwise>
+                  <option value="success-stop">テスト成功時のみStop</option>
+                </j:otherwise>
+              </j:choose>
+              <j:choose>
+                <j:when test="${endManagement == 'nothing'}">
+                  <option value="nothing" selected="selected">何もしない</option>
+                </j:when>
+                <j:otherwise>
+                  <option value="nothing">何もしない</option>
+                </j:otherwise>
+              </j:choose>
+          </select>
         </f:entry>
         <f:entry>
           <div align="right">

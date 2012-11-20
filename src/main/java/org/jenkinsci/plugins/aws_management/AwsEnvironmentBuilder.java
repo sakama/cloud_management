@@ -200,6 +200,7 @@ public class AwsEnvironmentBuilder extends Builder {
         private String role;
         private String securityGroup;
         private String zone;
+        private String endManagement;
 
         public String getEnvName() {
             return envName;
@@ -232,9 +233,13 @@ public class AwsEnvironmentBuilder extends Builder {
         public String getZone() {
             return zone;
         }
+        
+        public String getEndManagement() {
+            return endManagement;
+        }
 
         @DataBoundConstructor
-        public CloudEnv(String envName, String amiId, String flavor, String elasticIp, String region, String role, String securityGroup, String zone) {
+        public CloudEnv(String envName, String amiId, String flavor, String elasticIp, String region, String role, String securityGroup, String zone, String endManagement) {
             this.envName = envName;
             this.amiId = amiId;
             this.flavor = flavor;
@@ -243,6 +248,7 @@ public class AwsEnvironmentBuilder extends Builder {
             this.role = role;
             this.securityGroup = securityGroup;
             this.zone = zone;
+            this.endManagement = endManagement;
         }
     }
 
@@ -262,6 +268,7 @@ public class AwsEnvironmentBuilder extends Builder {
         return awsKeyFile;
     }
     
+    // TODO missing its descriptor in publicとなる。保存はできるが修正したい
     public List<CloudEnv> getEnvs() {
         return envs;
     }
