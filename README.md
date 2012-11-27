@@ -39,4 +39,4 @@ TODO そのうち書く
 
 ----------
 
-TODO そのうち考える
+MIT License
