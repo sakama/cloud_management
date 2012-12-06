@@ -1,4 +1,4 @@
-package org.jenkinsci.plugins.aws_management;
+package org.jenkinsci.plugins.cloud_management;
 
 import javax.servlet.ServletException;
 import java.io.IOException;
@@ -25,7 +25,7 @@ import org.kohsuke.stapler.QueryParameter;
  * 
  * @author Satoshi Akama
  */
-public class AwsEnvironmentBuilder extends Builder {
+public class CloudEnvironmentBuilder extends Builder {
 
     private final String tool;
     private final String sshCmd;
@@ -34,10 +34,10 @@ public class AwsEnvironmentBuilder extends Builder {
     private final List<CloudEnv> envs;
 
     /** Logger. */
-    private static final Logger LOGGER = Logger.getLogger(AwsEnvironmentBuilder.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(CloudEnvironmentBuilder.class.getName());
 
     @DataBoundConstructor
-    public AwsEnvironmentBuilder(String tool, String sshCmd, Boolean requiresudo, String awsKeyFile, List<CloudEnv> envs) {
+    public CloudEnvironmentBuilder(String tool, String sshCmd, Boolean requiresudo, String awsKeyFile, List<CloudEnv> envs) {
         this.tool = tool;
         this.sshCmd = sshCmd;
         this.requiresudo = requiresudo;
@@ -81,7 +81,7 @@ public class AwsEnvironmentBuilder extends Builder {
         }
 
         public String getDisplayName() {
-            return "AWS Management";
+            return "Cloud Management";
         }
 
         @Override

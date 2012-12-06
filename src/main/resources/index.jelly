@@ -2,5 +2,5 @@
   This view is used to render the installed plugins page.
 -->
 <div>
-  <p>このプラグインではJenkins上でAWSのEC2インスタンス等のセットアップができます。テスト開始時に指定されたAMIを元に環境を構築し、テスト終了時にTerminate、Stopなど指定されたアクションを行います。</p>
+  <p>このプラグインではJenkinsから各IaaS上にサーバの自動セットアップができます。テスト開始時に指定されたAMIを元に環境を構築し、テスト終了時にTerminate、Stopなど指定されたアクションを行います。</p>
 </div>

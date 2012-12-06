@@ -3,7 +3,7 @@
     プロジェクトの設定画面に表示される設定欄
   -->
   
-  <f:section title="AWS環境のセットアップに使うミドルウェアの設定">
+  <f:section title="環境のセットアップに使うミドルウェアの設定">
     <f:entry title="使用するミドルウェア" field="tool">
       <select name="tool">
           <j:set var="tool" value="${instance.tool}" />
@@ -42,8 +42,8 @@
 <f:section title="インスタンス設定">
   <f:entry field="envs" title="インスタンス">
     <f:repeatable field="envs" minimum="1">
-      <j:set var="helpURL" value="/plugin/aws_management/" />
-      <j:set var="checkURL" value="descriptorByName/AwsEnvironmentBuilder/" />
+      <j:set var="helpURL" value="/plugin/cloud_management/" />
+      <j:set var="checkURL" value="descriptorByName/CloudEnvironmentBuilder/" />
       <div>インスタンス立ち上げに失敗した場合、テスト失敗となります。</div>
       <table width="100%">
         <f:entry field="envName" title="名前(整理用)" help="${helpURL}help-envName.html" >

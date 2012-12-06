@@ -1,4 +1,4 @@
-package org.jenkinsci.plugins.aws_management.tools;
+package org.jenkinsci.plugins.cloud_management.tools;
 
 
 /**
