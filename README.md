@@ -1,11 +1,11 @@
-# AWS Management Plugin for Jenkins
+# Cloud Management Plugin for Jenkins
 
 #What's this?#
 
 ----------
-Jenkinsのビルド処理において、AWS ([Amazon Web Service](http://aws.amazon.com/)) 上にテストのためのサーバをセットアップするプラグインです。
+Jenkinsのビルド処理において、各種IaaS上にテストのためのサーバをセットアップするプラグインです。
 
-Chef、Fabric両対応の予定。Puppetは周りにニーズがないので予定なし。
+Chef、Fabric両対応の予定。
 
 
 
